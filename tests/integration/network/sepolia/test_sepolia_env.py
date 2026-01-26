@@ -103,7 +103,9 @@ def test_verify(verifier):
     result = boa.verify(contract, verifier)
     result.wait_for_verification()
     assert result.is_verified()
-    assert verifier.chain_id == boa.env.get_chain_id()
+    # Only Etherscan has chain_id attribute
+    if isinstance(verifier, Etherscan):
+        assert verifier.chain_id == boa.env.get_chain_id()
 
 
 def test_env_type():
