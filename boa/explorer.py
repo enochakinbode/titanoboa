@@ -95,7 +95,7 @@ class Etherscan(ContractVerifier[str]):
 
         def verification_created():
             # we need to retry until the contract is found by Etherscan
-            response = SESSION.post(self.uri, data=data)
+            response = SESSION.post(f"{self.uri}?chainid={self.chain_id}", data=data)
             response.raise_for_status()
             response_json = response.json()
             if response_json.get("status") == "1":
